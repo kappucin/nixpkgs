@@ -26,7 +26,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "throne";
-  version = "1.0.13";
+  version = "1.1.1";
 
   src = fetchFromGitHub {
     owner = "throneproj";
