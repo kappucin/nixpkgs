@@ -19,7 +19,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "dbeaver-bin";
-  version = "26.0.1";
+  version = "26.0.3";
 
   src =
     let
@@ -32,10 +32,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         aarch64-darwin = "macos-aarch64.dmg";
       };
       hash = selectSystem {
-        x86_64-linux = "sha256-tmT62M2NvvSsBWKbRT0iTVdQVuBuPsDuDBtVtr7FKPU=";
-        aarch64-linux = "sha256-WL7pO0l5TZEl2Ur8Qiqw/5ZAKR4iaoN8yxpG7wtPmds=";
-        x86_64-darwin = "sha256-vg3zi39kWfPqxhKtUv2WixJMqejgDLIuVQ26Jyrtl9c=";
-        aarch64-darwin = "sha256-jNwcIKmOCI75h0Ul/oARm2S1UzUUw2GflHdwA7d+3nU=";
+        x86_64-linux = "sha256-G6Rurk8AtHXRfdMvBMNoJTSzBdQJ5Ncy/7WFt5vr3uI=";
+        aarch64-linux = "sha256-iZK5sQfdjMlgX8bhyL2q7lleIKR479KhDydqD3kR3sU=";
+        x86_64-darwin = "sha256-A5upiZ0tts+Pyg1TDhvEVYbGqnAxooUjsZxMG2L9RVQ=";
+        aarch64-darwin = "sha256-v8CQLQRAOzLY1PqxIEFzaKo3RiLb/i9QhxPQZHSuguI=";
       };
     in
     fetchurl {

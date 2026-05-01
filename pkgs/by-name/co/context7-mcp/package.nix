@@ -4,6 +4,7 @@
   fetchFromGitHub,
   makeWrapper,
   nix-update-script,
+  versionCheckHook,
 
   nodejs,
   pnpm,
@@ -15,13 +16,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "context7-mcp";
-  version = "2.1.4";
+  version = "2.2.0";
 
   src = fetchFromGitHub {
     owner = "upstash";
     repo = "context7";
     tag = "${tag-prefix}@${finalAttrs.version}";
-    hash = "sha256-bQXmKY4I5k5uaQ2FVEOPkym5X3mR87nALf3+jqJjJjE=";
+    hash = "sha256-MFHajv1f+Xj8BtiiDQs4Sct1IhYS4+hYY+PdVAYqkNw=";
   };
 
   nativeBuildInputs = [
@@ -34,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 3;
-    hash = "sha256-EjEdbPKXJbxaDBuAg/j+BSjI/W3HdsqbtDky0TPUB88=";
+    hash = "sha256-f3PXpCdmKh2LPD5VyFsRdLR7CEvh+GozkQFSeeNuj2c=";
   };
 
   buildPhase = ''
@@ -62,28 +63,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
-
-    echo "Executing custom version check for MCP stdio server..."
-
-    output=$(< /dev/null $out/bin/context7-mcp 2>&1 || true)
-
-    if echo "$output" | grep -Fq "v${finalAttrs.version}"; then
-      echo "versionCheckPhase: found version v${finalAttrs.version}"
-    else
-      echo "versionCheckPhase: failed to find version v${finalAttrs.version}"
-      echo "Output was:"
-      echo "$output"
-      exit 1
-    fi
-
-    runHook postInstallCheck
-  '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex '${tag-prefix}@(.*)'" ];
+    extraArgs = [
+      "--version-regex"
+      "${tag-prefix}@(.*)"
+    ];
   };
 
   meta = {

@@ -1,28 +1,25 @@
 {
+  lib,
+  stdenv,
   buildGoModule,
   fetchFromGitHub,
-  stdenv,
   versionCheckHook,
-  lib,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "goshs";
-  version = "1.1.4";
+  version = "2.0.6";
 
   src = fetchFromGitHub {
     owner = "patrickhener";
     repo = "goshs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7z/7dUTDHteAwK78hbrvsHk3Gnv7ZSvaW25sC3vkwW4=";
+    hash = "sha256-HbwxBZnALbtuZ9BBkyNatDYdjExC3YtHvex0rQR8LLM=";
   };
 
-  vendorHash = "sha256-43Bu4BAmMmd6WrDNztQNCi2OdlzIfbrQC100DkcD4uE=";
+  vendorHash = "sha256-i/Q9YBcmBBtEbsHRX0Q4aaWPxP2OpdUKwJuj5Oq1Yq4=";
 
-  ldflags = [
-    "-s"
-    "-w"
-  ];
+  ldflags = [ "-s" ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
 
@@ -40,6 +37,8 @@ buildGoModule (finalAttrs: {
     # does not work in sandbox even with __darwinAllowLocalNetworking
     "-skip=^TestGetIPv4Addr$"
   ];
+
+  versionCheckProgramArg = [ "-v" ];
 
   meta = {
     description = "Simple, yet feature-rich web server written in Go";

@@ -6,21 +6,21 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "llmfit";
-  version = "0.8.5";
+  version = "0.9.17";
 
   src = fetchFromGitHub {
     owner = "AlexsJones";
     repo = "llmfit";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PKPG/7aRfzg3JyCA+09S6jZGtcyXoOdbBCpKPrtDQE0=";
+    hash = "sha256-ILLNExMAsBhikwrXZa9qgNlJzKTEwhjhvl5UQGtKPT0=";
   };
 
-  cargoHash = "sha256-1FC2bhHuS3yHFOOVIychrTj8sHGqcY2twsElrqV6ooE=";
+  cargoHash = "sha256-ftnGz3mUGMOQveKbsiUVSsP0hqkj9LVxnGrCG+fzvJ4=";
 
   meta = {
-    description = "Find what runs on your hardware";
+    description = "TUI to find LLM models right sized for the system's RAM, CPU, and GPU";
     homepage = "https://github.com/AlexsJones/llmfit";
-    changelog = "https://github.com/AlexsJones/llmfit/releases/tag/v${finalAttrs.src.rev}";
+    changelog = "https://github.com/AlexsJones/llmfit/blob/v${finalAttrs.src.rev}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       matthiasbeyer

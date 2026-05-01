@@ -109,6 +109,7 @@ rec {
       allowSubstitutes ? false,
       preferLocalBuild ? true,
       derivationArgs ? { },
+      pos ? builtins.unsafeGetAttrPos "name" args,
     }@args:
     assert lib.assertMsg (destination != "" -> (lib.hasPrefix "/" destination && destination != "/")) ''
       destination must be an absolute path, relative to the derivation's out path,
@@ -123,8 +124,8 @@ rec {
     runCommand name
       (
         {
-          pos = builtins.unsafeGetAttrPos "name" args;
           inherit
+            pos
             text
             executable
             checkPhase
@@ -261,6 +262,7 @@ rec {
       inheritPath ? true,
     }@args:
     writeTextFile {
+      pos = builtins.unsafeGetAttrPos "name" args;
       inherit
         name
         meta
@@ -928,14 +930,7 @@ rec {
         outputHash = hash_;
         preferLocalBuild = true;
         builder = writeScript "restrict-message" ''
-          source ${stdenvNoCC}/setup
-          cat <<_EOF_
-
-          ***
-          ${msg}
-          ***
-
-          _EOF_
+          printf '%s' ${lib.escapeShellArg msg}
           exit 1
         '';
       }
@@ -1045,7 +1040,7 @@ rec {
         passthru = extraPassthru // finalAttrs.src.passthru or { };
 
         # Carry (and merge) information from the underlying `src` if present.
-        meta = lib.optionalAttrs (src ? meta) (removeAttrs finalAttrs.src.meta [ "position" ]);
+        meta = lib.optionalAttrs (finalAttrs.src ? meta) (removeAttrs finalAttrs.src.meta [ "position" ]);
       };
   };
 

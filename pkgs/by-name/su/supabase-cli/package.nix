@@ -10,16 +10,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "supabase-cli";
-  version = "2.84.2";
+  version = "2.95.4";
 
   src = fetchFromGitHub {
     owner = "supabase";
     repo = "cli";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-0S+FV1aty/RzkLA6WK4Me/eKEr4LduDfIVdruQO9ZrM=";
+    hash = "sha256-qg2b3fzmsGhVyqGQVA0Iffnna72TgH+2j0CHljG2BWg=";
   };
 
-  vendorHash = "sha256-7BkSPFR5ciEVA/i1gy53SZu26MMkZNC+VwRHMoLJSxI=";
+  vendorHash = "sha256-SAqxD60UeP0jxigMQfddJlZs7EWkdws2v47smidAisk=";
 
   ldflags = [
     "-s"
@@ -60,6 +60,7 @@ buildGoModule (finalAttrs: {
     maintainers = with lib.maintainers; [
       gerschtli
       kashw2
+      yuannan
     ];
     mainProgram = "supabase";
   };

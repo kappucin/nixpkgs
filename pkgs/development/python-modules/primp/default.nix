@@ -11,14 +11,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "primp";
-  version = "1.2.1";
+  version = "1.2.3";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "deedy5";
     repo = "primp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3NAu8hAHdazsV+KEH7gUms8XGKW84nasHnygIz5jRa8=";
+    hash = "sha256-W5wjsuehTIdrImBVkmcEptiEE0CtlHJZ0kAbP3f3TTg=";
   };
 
   # The Cargo.lock is not pushed upstream
@@ -43,6 +43,13 @@ buildPythonPackage (finalAttrs: {
     pytestCheckHook
     pytest-asyncio
   ];
+  # pytest runs from the source root but asyncio_mode=auto is configured in
+  # crates/primp-python/pyproject.toml, which pytest doesn't pick up from there
+  pytestFlagsArray = [
+    "-o"
+    "asyncio_mode=auto"
+  ];
+
   disabledTestPaths = [
     "crates/primp-python/tests/test_impersonate.py"
     "crates/primp-python/tests/test_header_order.py"

@@ -7,16 +7,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "vacuum-go";
-  version = "0.25.2";
+  version = "0.26.1";
 
   src = fetchFromGitHub {
     owner = "daveshanley";
     repo = "vacuum";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-SJYOnd9wTIUwK/X8LeXH+Pn09+H8EFzjkkSTINRXdsE=";
+    hash = "sha256-UUHOlZuMnL4fAcocmi6rdOQvxl3oNrZMgnad/0z2+oA=";
   };
 
-  vendorHash = "sha256-RLa63ZvnXJ1bNHrwP9oLznsaSlz7tY7ROtHIML+7Egw=";
+  vendorHash = "sha256-zPlhjHfwFrhpYAKcgVi1II0hR3fOFItegt9SZoei1SQ=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
