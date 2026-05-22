@@ -40,11 +40,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "calibre";
-  version = "9.7.0";
+  version = "9.8.0";
 
   src = fetchurl {
     url = "https://download.calibre-ebook.com/${finalAttrs.version}/calibre-${finalAttrs.version}.tar.xz";
-    hash = "sha256-FmEflROGdI6DSBlCPgk4k1dV5AIwHvB6pY+E9ItpQgE=";
+    hash = "sha256-3dkWokb8gh4JPbrBsJ9dGy/IS1PfNrAU775qxo8CaO8=";
   };
 
   patches =
@@ -248,6 +248,9 @@ stdenv.mkDerivation (finalAttrs: {
         # eglInitialize: Failed to get system egl display
         # Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
         "test_recipe_browser_webengine"
+        # Flaky test, occasionally errors with python exception:
+        # urllib.error.URLError: <urlopen error NetworkError.RemoteHostClosedError: Connection closed>
+        "test_recipe_browser_qt"
       ]
       ++ lib.optionals stdenv.hostPlatform.isAarch64 [
         # https://github.com/microsoft/onnxruntime/issues/10038
